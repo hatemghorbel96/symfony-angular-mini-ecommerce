@@ -64,7 +64,7 @@ export class CheckoutComponent implements OnInit {
       })
     });
 
-     // populate credit card months
+   
 
      const startMonth: number = new Date().getMonth() + 1;
      console.log("startMonth: " + startMonth);
@@ -76,7 +76,7 @@ export class CheckoutComponent implements OnInit {
        }
      );
  
-     // populate credit card years
+    
  
      this.shopFormService.getCreditCardYears().subscribe(
        data => {
@@ -84,7 +84,7 @@ export class CheckoutComponent implements OnInit {
          this.creditCardYears = data;
        }
      );
-       // populate countries
+       
 
     this.shopFormService.getCountries().subscribe(
       data => {
@@ -103,7 +103,7 @@ export class CheckoutComponent implements OnInit {
     if (event.target.checked) {
       this.checkoutFormGroup.get('billingAddress')!.setValue(
         this.checkoutFormGroup.get('shippingAddress')!.value);
-         // bug fix for states
+        
       this.billingAddressStates = this.shippingAddressStates;
       
     } else {
@@ -119,7 +119,7 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-     // set up order
+    
      let order = new Order();
      order.totalPrice = this.totalPrice;
      order.totalQuantity = this.totalQuantity;
@@ -136,39 +136,37 @@ export class CheckoutComponent implements OnInit {
      }
      */
  
-     // - short way of doing the same thingy
+  
      let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
- 
-     // set up purchase
+
      let purchase = new Purchase();
-     
-     // populate purchase - customer
+
      purchase.customer = this.checkoutFormGroup.controls['customer'].value;
      
-     // populate purchase - shipping address
+    
      purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
      const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
      const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
      purchase.shippingAddress.state = shippingState.name;
      purchase.shippingAddress.country = shippingCountry.name;
  
-     // populate purchase - billing address
+    
      purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
      const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
      const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
      purchase.billingAddress.state = billingState.name;
      purchase.billingAddress.country = billingCountry.name;
    
-     // populate purchase - order and orderItems
+   
      purchase.order = order;
      purchase.orderItems = orderItems;
  
-     // call REST API via the CheckoutService
+
      this.checkoutService.placeOrder(purchase).subscribe({
          next: response => {
            alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
  
-           // reset cart
+         
            this.resetCart();
  
          },
@@ -181,15 +179,14 @@ export class CheckoutComponent implements OnInit {
    }
  
    resetCart() {
-     // reset cart data
+    
      this.CartService.cartItems = [];
      this.CartService.totalPrice.next(0);
      this.CartService.totalQuantity.next(0);
-     
-     // reset the form
+
      this.checkoutFormGroup.reset();
  
-     // navigate back to the products page
+  
      this.router.navigateByUrl("/products");
    }
  
@@ -205,7 +202,7 @@ export class CheckoutComponent implements OnInit {
     const currentYear: number = new Date().getFullYear();
     const selectedYear: number = Number(creditCardFormGroup.value.expirationYear);
 
-    // if the current year equals the selected year, then start with the current month
+   
 
     let startMonth: number;
 
@@ -244,7 +241,7 @@ export class CheckoutComponent implements OnInit {
           this.billingAddressStates = data;
         }
 
-        // select first item by default
+     
         formGroup.get('state')!.setValue(data[0]);
       }
     );
@@ -252,12 +249,12 @@ export class CheckoutComponent implements OnInit {
 
   reviewCartDetails() {
 
-    // subscribe to cartService.totalQuantity
+   
     this.CartService.totalQuantity.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
     );
 
-    // subscribe to cartService.totalPrice
+ 
     this.CartService.totalPrice.subscribe(
       totalPrice => this.totalPrice = totalPrice
     );
