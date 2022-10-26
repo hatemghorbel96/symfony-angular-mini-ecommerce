@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   previousCategoryId: number = 1;
 
  
-  // new properties for pagination
+ 
   thePageNumber: number = 1;
   thePageSize: number = 5;
   theTotalElements: number = 0;
@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
-    // now search for the products using keyword
+   
     this.productService.searchProducts(theKeyword).subscribe(
       data => {
         this.products = data;
@@ -62,14 +62,14 @@ export class ProductListComponent implements OnInit {
   }
 
   handleListProducts(){
-    // check if "id" parapeter is available
+   
     const hasCategoryId:boolean = this.route.snapshot.paramMap.has('id');
 
       if (hasCategoryId){
-        // get the "id" param string convert to a number using the "+" symbol
+       
         this.currentCategoryID = +this.route.snapshot.paramMap.get('id')!;
       }else {
-        // not category id avaible default to cateogry id 1
+        
         this.currentCategoryID = 1;
       }
       
@@ -87,7 +87,7 @@ export class ProductListComponent implements OnInit {
   addToCart(theProduct: Product){
     console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitePrice}`);
 
-    // TODO ... do the real work
+  
     const theCartItem = new CartItem(theProduct);
 
     this.cartService.addToCart(theCartItem);
