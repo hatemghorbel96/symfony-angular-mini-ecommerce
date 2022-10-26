@@ -22,7 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   productdetails(){
-    // get the id from parameter and covert string to number using the + symbol
+   
     const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
 
     this.productService.getProductById(theProductId).subscribe(
