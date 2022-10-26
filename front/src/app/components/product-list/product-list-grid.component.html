@@ -1,0 +1,78 @@
+<div class="main-content">
+
+    <div class="section-content section-content-p30">
+
+        <div class="container-fluid">
+
+                <div class="row">
+
+                    <!-- loop over the collection of produicts-->
+                <div *ngFor="let p of products" class="col-md-3">
+                
+                    <div class="product-box">
+
+                        <a routerLink="/products/{{p.id}}">
+                            <img src="{{p.imageUrl}}" alt="" class="img-responsive">
+                        </a>
+
+                        <a routerLink="/products/{{p.id}}">
+                            <h1>{{p.name}}</h1>
+                        </a>
+
+                        <div class="price">{{p.unitePrice | currency:'DT'}}</div>
+                        <button (click)="addToCart(p)" class="btn btn-primary btn-sm">Add to cart</button>
+                    </div>
+                
+                </div>
+
+                <!--if product not found dispay message-->
+                <div *ngIf="products?.length == 0" class="alert alert-danger col-md-12" role="alert">
+                    No products found.
+                </div>
+
+                </div>
+
+                 <!-- begin footer -->
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+                            
+                              <!--   <ngb-pagination [(page)]="thePageNumber"
+                                                [pageSize]="thePageSize"
+                                                [collectionSize]="theTotalElements"
+                                                [maxSize]="5"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="listProduct()">
+
+                                </ngb-pagination> -->
+
+                            </div>
+
+                                <div class="col-md-3 mt-2" style="text-align: right;">
+                                    <span class="mr-2">Page Size</span>
+
+                                  <!--   <select (change)="updatePageSize($any($event.target).value)">
+                                        <option>2</option>
+                                        <option selected="true">5</option>
+                                        <option>10</option>
+                                        <option>20</option>
+                                        <option>50</option>
+                                    </select> -->
+                                </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end footer -->
+
+        </div>
+
+    </div>
+
+</div>

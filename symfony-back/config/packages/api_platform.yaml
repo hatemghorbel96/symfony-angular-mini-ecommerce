@@ -1,0 +1,22 @@
+api_platform:
+    allow_plain_identifiers: true
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        mime_types: ['multipart/form-data']
+        json: ['application/merge-patch+json']
+        jsonapi:  ['application/vnd.api+json']
+        jsonld:   ['application/ld+json']
+    swagger:
+        versions: [3]
+    
+    collection:
+        pagination:
+            page_parameter_name: _page
+            items_per_page: 50
+            client_items_per_page: true
+            items_per_page_parameter_name: itemsPerPage
+            partial: false
+            client_partial: true
+            partial_parameter_name: 'partial'
+            maximum_items_per_page: 100
